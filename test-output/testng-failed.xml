@@ -8,6 +8,7 @@
         <methods>
           <include name="hitURL"/>
           <include name="ClickOnLabBolt"/>
+          <include name="clickOnBackPack"/>
           <include name="ClickOnOneSie"/>
           <include name="HitLogInPage"/>
           <include name="verifyloginpage"/>

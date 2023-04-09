@@ -50,11 +50,13 @@ public class TestClass extends BaseClass {
 	@BeforeMethod
 	public void HitLogInPage() throws InterruptedException, EncryptedDocumentException, IOException {
 	    login = new LogInPage(driver);
-	    String UserID = Utility.GetDataFromExcel(3,2);
+	    String UserID = Utility.GetDataFromExcel(3,2);//standard_user
+
 	    login.SendUserName(UserID);
 		Thread.sleep(1000);
 		
-	    String UserPass = Utility.GetDataFromExcel(5,3);
+	    String UserPass = Utility.GetDataFromExcel(5,3);//secret_sauce
+
         login.SendPassword(UserPass);
 		Thread.sleep(1000);
 		
