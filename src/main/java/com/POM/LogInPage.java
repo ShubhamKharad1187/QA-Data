@@ -41,12 +41,12 @@ public class LogInPage {
 		PageFactory.initElements(driver, this);
 	}
 
-	public void SendUserName() {
-		user.sendKeys("standard_user");
+	public void SendUserName(String username) {
+		user.sendKeys(username);
 	}
 
-	public void SendPassword() {
-		pass.sendKeys("secret_sauce");
+	public void SendPassword(String password) {
+		pass.sendKeys(password);
 	}
 
 	public void VerifyloginTab() {

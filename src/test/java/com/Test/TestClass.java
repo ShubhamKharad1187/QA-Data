@@ -2,6 +2,7 @@ package com.Test;
 
 import java.io.IOException;
 
+import org.apache.poi.EncryptedDocumentException;
 import org.openqa.selenium.WebDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
@@ -14,15 +15,16 @@ import org.testng.annotations.Test;
 
 import com.Base.BaseClass;
 import com.POM.LogInPage;
-import com.Utility.Utils;
+import com.Utility.Utility;
 
 
 
 public class TestClass extends BaseClass {
      // Here we have done the WebDriver driver as globle so we can use it any where within the class
-	 WebDriver driver;
+	 private WebDriver driver;
 	// Here we have done the LogInPage login as globle so we can use it any where within the class
-	 LogInPage login;
+	private LogInPage login;
+	private LogInPage logout;
 
 	@BeforeTest
 	@Parameters("Browser")
@@ -46,12 +48,16 @@ public class TestClass extends BaseClass {
 	}
 
 	@BeforeMethod
-	public void HitLogInPage() throws InterruptedException {
+	public void HitLogInPage() throws InterruptedException, EncryptedDocumentException, IOException {
 	    login = new LogInPage(driver);
-		login.SendUserName();
+	    String UserID = Utility.GetDataFromExcel(3,2);
+	    login.SendUserName(UserID);
 		Thread.sleep(1000);
-		login.SendPassword();
+		
+	    String UserPass = Utility.GetDataFromExcel(5,3);
+        login.SendPassword(UserPass);
 		Thread.sleep(1000);
+		
 		login.VerifyloginTab();
 		Thread.sleep(1000);
 	}
@@ -84,9 +90,9 @@ public class TestClass extends BaseClass {
 	@AfterMethod
 	public void verifyloginpage(ITestResult result) throws IOException, InterruptedException {
 		if (ITestResult.FAILURE==result.getStatus()) {
-			Utils.TakesScreenShot(driver);
+			Utility.TakesScreenShot(driver);
 			}
-		LogInPage logout = new LogInPage(driver);
+	    logout = new LogInPage(driver);
 		logout.ClickOnBackButton();
 		Thread.sleep(1000);
 		logout.ClickOnMenu();
